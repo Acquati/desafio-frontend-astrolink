@@ -1,12 +1,8 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
       <v-card>
-        <v-card-title class="headline red">
+        <v-card-title class="headline">
           Welcome to the Vuetify + Nuxt.js template
         </v-card-title>
         <v-card-text>
@@ -66,6 +62,16 @@
 export default {
   data() {
     return {}
+  },
+  mounted() {
+    this.$axios
+      .$get('https://api.github.com/search/users?q=leandro+acquati+type:user')
+      .then((result) => {
+        console.log(result)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 }
 </script>
