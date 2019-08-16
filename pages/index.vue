@@ -129,14 +129,12 @@ export default {
             '+type:user'
         )
         .then((result) => {
+          this.results = []
           if (result.total_count === 0) {
             this.results = []
             this.feedback = 'No users found with these words.'
           } else {
-            result.items.forEach((item) => {
-              // console.log(item.login)
-              this.results.push(item.login)
-            })
+            result.items.forEach((item) => this.results.push(item))
 
             result.total_count === 1
               ? (this.feedback = 'User found.')
