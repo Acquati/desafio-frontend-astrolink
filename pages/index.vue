@@ -81,7 +81,7 @@ export default {
   data() {
     return {
       searchText: '',
-      results: {},
+      results: [],
       feedback: 'Search GitHub Users.'
     }
   },
@@ -130,10 +130,14 @@ export default {
         )
         .then((result) => {
           if (result.total_count === 0) {
-            this.results = {}
+            this.results = []
             this.feedback = 'No users found with these words.'
           } else {
-            this.results = result
+            result.items.forEach((item) => {
+              // console.log(item.login)
+              this.results.push(item.login)
+            })
+
             result.total_count === 1
               ? (this.feedback = 'User found.')
               : (this.feedback = 'Users found.')
