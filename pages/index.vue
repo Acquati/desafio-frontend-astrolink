@@ -137,8 +137,8 @@ export default {
             result.items.forEach((item) => this.results.push(item))
 
             result.total_count === 1
-              ? (this.feedback = 'User found.')
-              : (this.feedback = 'Users found.')
+              ? (this.feedback = '1 User found.')
+              : (this.feedback = result.total_count + ' Users found.')
           }
         })
         .catch((error) => {
