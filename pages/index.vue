@@ -1,7 +1,7 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <v-card>
+  <v-layout>
+    <v-flex>
+      <!-- <v-card>
         <v-card-title class="headline">
           Welcome to the Vuetify + Nuxt.js template
         </v-card-title>
@@ -53,15 +53,58 @@
             Continue
           </v-btn>
         </v-card-actions>
-      </v-card>
+      </v-card> -->
+      <v-text-field
+        v-model="searchText"
+        label="Search Users"
+        @keyup.enter="fetchResults"
+      >
+        <!-- <template slot="append">
+          <v-icon v-if="hasText" @click="clearButton">clear</v-icon>
+        </template>
+        <template slot="append-outer">
+          <v-icon @click="fetchResults">search</v-icon>
+        </template> -->
+      </v-text-field>
+      <p>{{ answer }}</p>
+      <p>
+        <code>{{ results }}</code>
+      </p>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   data() {
-    return {}
+    return {
+      searchText: '',
+      results: [],
+      answer: 'Search GitHub Users.'
+    }
+  },
+  computed: {
+    hasText() {
+      return this.searchText.length
+    },
+    hasResults() {
+      return this.results.length
+    }
+  },
+  watch: {
+    searchText() {
+      if (this.searchText !== '') {
+        this.answer = 'Waiting for GitHub API ...'
+      } else {
+        this.answer = 'Search GitHub Users.'
+      }
+      this.debouncedFetchResults()
+    }
+  },
+  created() {
+    this.debouncedFetchResults = _.debounce(this.fetchResults, 500)
   },
   mounted() {
     this.$axios
@@ -72,6 +115,35 @@ export default {
       .catch((error) => {
         console.log(error)
       })
+  },
+  methods: {
+    clearButton() {
+      this.searchText = ''
+    },
+    fetchResults() {
+      if (this.searchText === '') return
+      this.$axios
+        .$get(
+          'https://api.github.com/search/users?q=' +
+            this.searchText +
+            '+type:user'
+        )
+        .then((result) => {
+          // if (result.data.results.length === 0) {
+          //   this.results = []
+          //   this.answer = 'no users found with these words.'
+          // } else {
+          //   this.results = result.data.results
+          //   result.data.results.length === 1
+          //     ? (this.answer = 'User found.')
+          //     : (this.answer = 'Users found.')
+          // }
+          this.results = result
+        })
+        .catch((error) => {
+          this.answer = 'GitHub API: ' + error
+        })
+    }
   }
 }
 </script>
