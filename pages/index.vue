@@ -66,7 +66,7 @@
           <v-icon @click="fetchResults">search</v-icon>
         </template> -->
       </v-text-field>
-      <p>{{ answer }}</p>
+      <p>{{ feedback }}</p>
       <p>
         <code>{{ results }}</code>
       </p>
@@ -81,8 +81,8 @@ export default {
   data() {
     return {
       searchText: '',
-      results: [],
-      answer: 'Search GitHub Users.'
+      results: {},
+      feedback: 'Search GitHub Users.'
     }
   },
   computed: {
@@ -96,9 +96,9 @@ export default {
   watch: {
     searchText() {
       if (this.searchText !== '') {
-        this.answer = 'Waiting for GitHub API ...'
+        this.feedback = 'Waiting for GitHub API ...'
       } else {
-        this.answer = 'Search GitHub Users.'
+        this.feedback = 'Search GitHub Users.'
       }
       this.debouncedFetchResults()
     }
@@ -107,14 +107,14 @@ export default {
     this.debouncedFetchResults = _.debounce(this.fetchResults, 500)
   },
   mounted() {
-    this.$axios
-      .$get('https://api.github.com/search/users?q=leandro+acquati+type:user')
-      .then((result) => {
-        console.log(result)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // this.$axios
+    //   .$get('https://api.github.com/search/users?q=leandro+acquati+type:user')
+    //   .then((result) => {
+    //     console.log(result)
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
   },
   methods: {
     clearButton() {
@@ -129,19 +129,18 @@ export default {
             '+type:user'
         )
         .then((result) => {
-          // if (result.data.results.length === 0) {
-          //   this.results = []
-          //   this.answer = 'no users found with these words.'
-          // } else {
-          //   this.results = result.data.results
-          //   result.data.results.length === 1
-          //     ? (this.answer = 'User found.')
-          //     : (this.answer = 'Users found.')
-          // }
-          this.results = result
+          if (result.total_count === 0) {
+            this.results = {}
+            this.feedback = 'No users found with these words.'
+          } else {
+            this.results = result
+            result.total_count === 1
+              ? (this.feedback = 'User found.')
+              : (this.feedback = 'Users found.')
+          }
         })
         .catch((error) => {
-          this.answer = 'GitHub API: ' + error
+          this.feedback = 'GitHub API: ' + error
         })
     }
   }
