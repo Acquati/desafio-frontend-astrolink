@@ -1,6 +1,6 @@
 <template>
-  <v-layout>
-    <v-flex>
+  <v-layout justify-center>
+    <v-flex xs12 md8 lg6>
       <!-- <v-card>
         <v-card-title class="headline">
           Welcome to the Vuetify + Nuxt.js template
@@ -67,6 +67,37 @@
         </template> -->
       </v-text-field>
       <p>{{ feedback }}</p>
+
+      <v-card>
+        <v-card-actions class="pb-0">
+          <v-list-item class="pl-2">
+            <v-list-item-avatar color="grey darken-3">
+              <v-img
+                class="elevation-6"
+                src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+              ></v-img>
+            </v-list-item-avatar>
+
+            <v-list-item-content>
+              <v-list-item-title>Evan You</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-card-actions>
+
+        <v-card-actions class="pt-0">
+          <v-list-item>
+            <v-row>
+              <v-icon class="mr-1">mdi-github-box</v-icon>
+              <span class="subheading mr-2">Score: 342.52335</span>
+            </v-row>
+            <v-row justify="end">
+              <v-btn outlined>
+                <v-icon class="mr-1">mdi-account-card-details</v-icon>Profile
+              </v-btn>
+            </v-row>
+          </v-list-item>
+        </v-card-actions>
+      </v-card>
       <p>
         <code>{{ results }}</code>
       </p>
@@ -104,7 +135,7 @@ export default {
     }
   },
   created() {
-    this.debouncedFetchResults = _.debounce(this.fetchResults, 500)
+    this.debouncedFetchResults = _.debounce(this.fetchResults, 1000)
   },
   mounted() {
     // this.$axios
@@ -117,9 +148,6 @@ export default {
     //   })
   },
   methods: {
-    clearButton() {
-      this.searchText = ''
-    },
     fetchResults() {
       if (this.searchText === '') return
       this.$axios
