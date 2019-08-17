@@ -68,18 +68,19 @@
       </v-text-field>
       <p>{{ feedback }}</p>
 
-      <v-card>
+      <v-card v-for="result in results" :key="result.id" class="mb-2">
         <v-card-actions class="pb-0">
           <v-list-item class="pl-2">
             <v-list-item-avatar color="grey darken-3">
               <v-img
+                :ref="result.login + ' Avatar'"
                 class="elevation-6"
-                src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                :src="result.avatar_url"
               ></v-img>
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title>Evan You</v-list-item-title>
+              <v-list-item-title>{{ result.login }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-card-actions>
@@ -88,7 +89,7 @@
           <v-list-item>
             <v-row>
               <v-icon class="mr-1">mdi-github-box</v-icon>
-              <span class="subheading mr-2">Score: 342.52335</span>
+              <span class="subheading mr-2">Score: {{ result.score }}</span>
             </v-row>
             <v-row justify="end">
               <v-btn outlined>
@@ -98,9 +99,9 @@
           </v-list-item>
         </v-card-actions>
       </v-card>
-      <p>
+      <!-- <p>
         <code>{{ results }}</code>
-      </p>
+      </p> -->
     </v-flex>
   </v-layout>
 </template>
