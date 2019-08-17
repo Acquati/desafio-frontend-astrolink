@@ -1,7 +1,7 @@
 <template>
   <v-layout justify-center>
     <v-flex xs12 md8 lg6>
-      <!-- <v-card>
+      <v-card>
         <v-card-title class="headline">
           Welcome to the Vuetify + Nuxt.js template
         </v-card-title>
@@ -53,22 +53,23 @@
             Continue
           </v-btn>
         </v-card-actions>
-      </v-card> -->
-      <v-text-field
+      </v-card>
+
+      <!-- <v-text-field
         v-model="searchText"
         label="Search Users"
         @keyup.enter="fetchResults"
       >
-        <!-- <template slot="append">
-          <v-icon v-if="hasText" @click="clearButton">clear</v-icon>
+        <template slot="append">
+          <v-icon v-if="hasText" @click="clearSearchText">mdi-close</v-icon>
         </template>
         <template slot="append-outer">
-          <v-icon @click="fetchResults">search</v-icon>
-        </template> -->
-      </v-text-field>
-      <p>{{ feedback }}</p>
+          <v-icon @click="fetchResults">mdi-magnify</v-icon>
+        </template>
+      </v-text-field> -->
+      <!-- <p>{{ feedback }}</p> -->
 
-      <v-card v-for="result in results" :key="result.id" class="mb-2">
+      <!-- <v-card v-for="result in results" :key="result.id" class="mb-2">
         <v-card-actions class="pb-0">
           <v-list-item class="pl-2">
             <v-list-item-avatar color="grey darken-3">
@@ -98,7 +99,7 @@
             </v-row>
           </v-list-item>
         </v-card-actions>
-      </v-card>
+      </v-card> -->
       <!-- <p>
         <code>{{ results }}</code>
       </p> -->
@@ -120,9 +121,6 @@ export default {
   computed: {
     hasText() {
       return this.searchText.length
-    },
-    hasResults() {
-      return this.results.length
     }
   },
   watch: {
@@ -135,20 +133,23 @@ export default {
       this.debouncedFetchResults()
     }
   },
+  mounted() {
+    this.$axios
+      .$get('https://api.github.com/users/yyx990803')
+      .then((result) => {
+        console.log(result)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
   created() {
     this.debouncedFetchResults = _.debounce(this.fetchResults, 1000)
   },
-  mounted() {
-    // this.$axios
-    //   .$get('https://api.github.com/search/users?q=leandro+acquati+type:user')
-    //   .then((result) => {
-    //     console.log(result)
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //   })
-  },
   methods: {
+    clearSearchText() {
+      this.searchText = ''
+    },
     fetchResults() {
       if (this.searchText === '') return
       this.$axios
