@@ -39,7 +39,7 @@
               <span class="subheading mr-2">Score: {{ result.score }}</span>
             </v-row>
             <v-row justify="end">
-              <v-btn outlined>
+              <v-btn :to="'/' + result.login" outlined>
                 <v-icon class="mr-1">mdi-account-card-details</v-icon>Profile
               </v-btn>
             </v-row>
