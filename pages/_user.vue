@@ -82,6 +82,13 @@
               <v-chip class="subheading mr-2">
                 {{ user.public_repos }}
               </v-chip>
+
+              <v-btn light @click="sortRepos">
+                <v-icon class="mr-1">mdi-star</v-icon>
+
+                <v-icon v-if="sorted">mdi-arrow-down-thick</v-icon>
+                <v-icon v-if="!sorted">mdi-arrow-up-thick</v-icon>
+              </v-btn>
             </v-row>
 
             <v-row justify="end">
@@ -158,13 +165,16 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   data() {
     return {
       user: {},
       repos: [],
       feedback: '',
-      isDataFetched: false
+      isDataFetched: false,
+      sorted: true
     }
   },
   mounted() {
@@ -182,6 +192,7 @@ export default {
         'https://api.github.com/users/' + this.$route.params.user + '/repos'
       )
       .then((result) => {
+        result = _.orderBy(result, 'stargazers_count', 'desc')
         this.repos = result
       })
       .catch((error) => {
@@ -189,6 +200,17 @@ export default {
       })
 
     this.isDataFetched = true
+  },
+  methods: {
+    sortRepos() {
+      if (this.sorted) {
+        this.repos = _.orderBy(this.repos, 'stargazers_count', 'asc')
+      } else {
+        this.repos = _.orderBy(this.repos, 'stargazers_count', 'desc')
+      }
+
+      this.sorted = !this.sorted
+    }
   }
 }
 </script>
