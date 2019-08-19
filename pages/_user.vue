@@ -94,15 +94,22 @@
 
         <v-divider></v-divider>
 
-        <template>
-          <v-card-actions>
+        <div v-for="(repo, index) in repos" :key="repo.id">
+          <v-list-item-content>
             <v-list-item>
-              <div class="title">Tonight's availability</div>
+              <div class="title">{{ repo.name }}</div>
             </v-list-item>
-          </v-card-actions>
 
-          <v-divider class="mx-4"></v-divider>
-        </template>
+            <v-list-item>
+              <div class="subtitle-1">{{ repo.description }}</div>
+            </v-list-item>
+          </v-list-item-content>
+
+          <v-divider
+            v-if="index + 1 !== user.public_repos"
+            class="mx-4"
+          ></v-divider>
+        </div>
       </v-card>
       <!-- <p>
         <code>{{ repos }}</code>
