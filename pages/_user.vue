@@ -50,8 +50,6 @@
 
               <v-chip class="subheading mr-2">{{ user.followers }}</v-chip>
 
-              <span class="mr-1">·</span>
-
               <v-icon class="mr-1">mdi-account-arrow-right</v-icon>
 
               <v-chip class="subheading">{{ user.following }}</v-chip>
