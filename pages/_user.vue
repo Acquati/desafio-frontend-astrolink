@@ -1,7 +1,7 @@
 <template>
   <v-layout v-if="isDataFetched" justify-center>
     <v-flex xs12 md10 lg8>
-      <v-card light class="mb-2">
+      <v-card light class="mb-3">
         <v-list-item three-line>
           <v-list-item-avatar size="80" color="white" tile>
             <v-img
@@ -135,9 +135,9 @@
 
                 <v-row justify="end">
                   <a
-                    :href="user.html_url"
+                    :href="repo.html_url"
                     target="_blank"
-                    :title="user.name + ' GitHub Repositories'"
+                    :title="repo.name + ' GitHub Repositorie'"
                     style="text-decoration: none;"
                   >
                     <v-btn light class="mr-1">
