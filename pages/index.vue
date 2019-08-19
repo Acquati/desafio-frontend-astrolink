@@ -18,7 +18,7 @@
       <v-card v-for="result in results" :key="result.id" class="mb-2">
         <v-card-actions class="pb-0">
           <v-list-item class="pl-2">
-            <v-list-item-avatar color="grey darken-3">
+            <v-list-item-avatar color="white">
               <v-img
                 :ref="result.login + ' Avatar'"
                 class="elevation-6"

@@ -3,7 +3,7 @@
     <v-flex xs12 md10 lg8>
       <v-card light class="mb-2">
         <v-list-item three-line>
-          <v-list-item-avatar size="80" color="grey" tile>
+          <v-list-item-avatar size="80" color="white" tile>
             <v-img
               :ref="user.login + ' Avatar'"
               class="elevation-3"
