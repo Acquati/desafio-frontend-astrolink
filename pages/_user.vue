@@ -1,7 +1,7 @@
 <template>
   <v-layout justify-center>
     <v-flex xs12 md8 lg10>
-      <v-card light>
+      <v-card v-if="isDataFetched" light>
         <v-list-item three-line>
           <v-list-item-avatar size="80" color="grey" tile>
             <v-img
@@ -16,20 +16,52 @@
               {{ user.name }}
             </v-list-item-title>
 
-            <div class="subtitle-1 mb-4">{{ user.login }}</div>
+            <div class="subtitle-2 mb-4">{{ user.login }}</div>
 
-            <div class="subtitle-2">{{ user.bio }}</div>
+            <div class="subtitle-1">{{ user.bio }}</div>
           </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item v-if="user.location !== null" class="body-1">
+          <v-icon class="mr-1">mdi-map-marker</v-icon> {{ user.location }}
+        </v-list-item>
+
+        <v-list-item v-if="user.email !== null" class="body-1">
+          <v-icon class="mr-1">mdi-email</v-icon> {{ user.email }}
+        </v-list-item>
+
+        <v-list-item v-if="user.blog !== null" class="body-1">
+          <v-icon class="mr-1">mdi-link-variant</v-icon>
+          <a
+            :href="user.blog"
+            target="_blank"
+            :rel="user.name + ' Blog'"
+            class="text-truncate"
+          >
+            {{ user.blog }}
+          </a>
         </v-list-item>
 
         <v-card-actions>
           <v-list-item class="grow">
             <v-row align="center">
-              <v-icon class="mr-1">mdi-account-group</v-icon>
+              <v-icon class="ml-2 mr-1">mdi-account-group</v-icon>
               <span class="subheading mr-2">{{ user.followers }}</span>
               <span class="mr-1">·</span>
               <v-icon class="mr-1">mdi-account-arrow-right</v-icon>
               <span class="subheading">{{ user.following }}</span>
+            </v-row>
+            <v-row justify="end">
+              <a
+                :href="user.html_url"
+                target="_blank"
+                :rel="user.name + ' GitHub Page'"
+                style="text-decoration: none;"
+              >
+                <v-btn dark>
+                  <v-icon class="mr-1">mdi-github-face</v-icon>GitHub
+                </v-btn>
+              </a>
             </v-row>
           </v-list-item>
         </v-card-actions>
@@ -50,7 +82,8 @@ export default {
       searchText: '',
       user: {},
       repos: [],
-      feedback: 'Search GitHub Users.'
+      feedback: 'Search GitHub Users.',
+      isDataFetched: false
     }
   },
   computed: {
@@ -90,6 +123,8 @@ export default {
       .catch((error) => {
         console.log(error)
       })
+
+    this.isDataFetched = true
   },
   created() {
     this.debouncedFetchResults = _.debounce(this.fetchResults, 1000)
