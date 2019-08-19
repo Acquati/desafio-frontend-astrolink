@@ -44,7 +44,7 @@
 
         <v-card-actions>
           <v-list-item>
-            <v-row align="center">
+            <v-row>
               <v-icon class="ml-2 mr-1">mdi-account-group</v-icon>
               <v-chip class="subheading mr-2">{{ user.followers }}</v-chip>
               <span class="mr-1">·</span>
@@ -59,7 +59,7 @@
                 style="text-decoration: none;"
               >
                 <v-btn dark>
-                  <v-icon class="mr-1">mdi-github-face</v-icon>GitHub
+                  <v-icon class="mr-1">mdi-github-face</v-icon>Profile
                 </v-btn>
               </a>
             </v-row>
@@ -69,9 +69,10 @@
 
       <v-card>
         <v-card-title>{{ user.name }} Repositories</v-card-title>
+
         <v-card-actions>
           <v-list-item>
-            <v-row align="center">
+            <v-row>
               <v-icon class="mr-1">mdi-notebook</v-icon>
               <v-chip class="subheading mr-2">
                 {{ user.public_repos }}
@@ -100,9 +101,41 @@
               <div class="title">{{ repo.name }}</div>
             </v-list-item>
 
-            <v-list-item>
-              <div class="subtitle-1">{{ repo.description }}</div>
+            <v-list-item v-if="repo.description !== null">
+              <div class="body-1">{{ repo.description }}</div>
             </v-list-item>
+
+            <v-card-actions class="cardPadding">
+              <v-list-item>
+                <v-row>
+                  <v-icon class="mr-1">mdi-star</v-icon>
+                  <v-chip class="subheading mr-2">
+                    {{ repo.stargazers_count }}
+                  </v-chip>
+                </v-row>
+              </v-list-item>
+            </v-card-actions>
+
+            <v-card-actions class="cardPadding">
+              <v-list-item>
+                <v-row v-if="repo.language !== null">
+                  <v-icon class="mr-1">mdi-file-code</v-icon>
+                  <div class="subtitle-1">{{ repo.language }}</div>
+                </v-row>
+                <v-row justify="end">
+                  <a
+                    :href="user.html_url"
+                    target="_blank"
+                    :title="user.name + ' GitHub Repositories'"
+                    style="text-decoration: none;"
+                  >
+                    <v-btn light class="mr-1">
+                      <v-icon class="mr-1">mdi-github-face</v-icon>Repositorie
+                    </v-btn>
+                  </a>
+                </v-row>
+              </v-list-item>
+            </v-card-actions>
           </v-list-item-content>
 
           <v-divider
@@ -119,42 +152,23 @@
 </template>
 
 <script>
-import _ from 'lodash'
-
 export default {
   data() {
     return {
-      searchText: '',
       user: {},
       repos: [],
-      feedback: 'Search GitHub Users.',
+      feedback: '',
       isDataFetched: false
-    }
-  },
-  computed: {
-    hasText() {
-      return this.searchText.length
-    }
-  },
-  watch: {
-    searchText() {
-      if (this.searchText !== '') {
-        this.feedback = 'Waiting for GitHub API ...'
-      } else {
-        this.feedback = 'Search GitHub Users.'
-      }
-      this.debouncedFetchResults()
     }
   },
   mounted() {
     this.$axios
       .$get('https://api.github.com/users/' + this.$route.params.user)
       .then((result) => {
-        console.log(result)
         this.user = result
       })
       .catch((error) => {
-        console.log(error)
+        this.feedback = error
       })
 
     this.$axios
@@ -162,49 +176,19 @@ export default {
         'https://api.github.com/users/' + this.$route.params.user + '/repos'
       )
       .then((result) => {
-        console.log(result)
         this.repos = result
       })
       .catch((error) => {
-        console.log(error)
+        this.feedback = error
       })
 
     this.isDataFetched = true
-  },
-  created() {
-    this.debouncedFetchResults = _.debounce(this.fetchResults, 1000)
-  },
-  methods: {
-    clearSearchText() {
-      this.searchText = ''
-    },
-    fetchResults() {
-      if (this.searchText === '') return
-      this.$axios
-        .$get(
-          'https://api.github.com/search/users?q=' +
-            this.searchText +
-            '+type:user'
-        )
-        .then((result) => {
-          this.results = []
-          if (result.total_count === 0) {
-            this.results = []
-            this.feedback = 'No users found with these words.'
-          } else {
-            result.items.forEach((item) => this.results.push(item))
-
-            result.total_count === 1
-              ? (this.feedback = '1 User found.')
-              : (this.feedback = result.total_count + ' Users found.')
-          }
-        })
-        .catch((error) => {
-          this.feedback = 'GitHub API: ' + error
-        })
-    }
   }
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.cardPadding {
+  padding: 0px 8px;
+}
+</style>
