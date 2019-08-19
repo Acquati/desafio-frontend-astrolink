@@ -36,7 +36,9 @@
           <v-list-item>
             <v-row>
               <v-icon class="mr-1">mdi-github-box</v-icon>
-              <span class="subheading mr-2">Score: {{ result.score }}</span>
+              <span class="subheading mr-2"
+                >Score: <v-chip>{{ result.score }}</v-chip></span
+              >
             </v-row>
             <v-row justify="end">
               <v-btn :to="'/' + result.login" outlined>

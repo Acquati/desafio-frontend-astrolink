@@ -46,10 +46,10 @@
           <v-list-item class="grow">
             <v-row align="center">
               <v-icon class="ml-2 mr-1">mdi-account-group</v-icon>
-              <span class="subheading mr-2">{{ user.followers }}</span>
+              <v-chip class="subheading mr-2">{{ user.followers }}</v-chip>
               <span class="mr-1">·</span>
               <v-icon class="mr-1">mdi-account-arrow-right</v-icon>
-              <span class="subheading">{{ user.following }}</span>
+              <v-chip class="subheading">{{ user.following }}</v-chip>
             </v-row>
             <v-row justify="end">
               <a
@@ -68,7 +68,7 @@
       </v-card>
 
       <v-card>
-        <v-card-title>Cafe Badilico</v-card-title>
+        <v-card-title>{{ user.name }} Repositories</v-card-title>
         <v-card-text>
           <v-row align="center">
             <v-rating
