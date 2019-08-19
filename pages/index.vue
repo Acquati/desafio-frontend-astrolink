@@ -13,6 +13,7 @@
           <v-icon @click="fetchResults">mdi-magnify</v-icon>
         </template>
       </v-text-field>
+
       <p>{{ feedback }}</p>
 
       <v-card v-for="result in results" :key="result.id" class="mb-2">

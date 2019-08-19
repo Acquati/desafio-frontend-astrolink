@@ -35,7 +35,7 @@
           <a
             :href="user.blog"
             target="_blank"
-            :rel="user.name + ' Blog'"
+            :title="user.name + ' Site'"
             class="text-truncate"
           >
             {{ user.blog }}
@@ -81,7 +81,7 @@
               <a
                 :href="user.html_url"
                 target="_blank"
-                :title="user.name + ' GitHub Repositories Page'"
+                :title="user.name + ' GitHub Repositories'"
                 style="text-decoration: none;"
               >
                 <v-btn light>
