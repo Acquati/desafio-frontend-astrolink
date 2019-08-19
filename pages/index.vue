@@ -9,6 +9,7 @@
         <template slot="append">
           <v-icon v-if="hasText" @click="clearSearchText">mdi-close</v-icon>
         </template>
+
         <template slot="append-outer">
           <v-icon @click="fetchResults">mdi-magnify</v-icon>
         </template>
@@ -41,6 +42,7 @@
                 >Score: <v-chip>{{ result.score }}</v-chip></span
               >
             </v-row>
+
             <v-row justify="end">
               <v-btn :to="'/' + result.login" outlined>
                 <v-icon class="mr-1">mdi-account-card-details</v-icon>Profile
@@ -49,9 +51,6 @@
           </v-list-item>
         </v-card-actions>
       </v-card>
-      <!-- <p>
-        <code>{{ results }}</code>
-      </p> -->
     </v-flex>
   </v-layout>
 </template>

@@ -32,6 +32,7 @@
 
         <v-list-item v-if="user.blog !== ''" class="body-1">
           <v-icon class="mr-1">mdi-link-variant</v-icon>
+
           <a
             :href="user.blog"
             target="_blank"
@@ -46,11 +47,16 @@
           <v-list-item>
             <v-row>
               <v-icon class="ml-2 mr-1">mdi-account-group</v-icon>
+
               <v-chip class="subheading mr-2">{{ user.followers }}</v-chip>
+
               <span class="mr-1">·</span>
+
               <v-icon class="mr-1">mdi-account-arrow-right</v-icon>
+
               <v-chip class="subheading">{{ user.following }}</v-chip>
             </v-row>
+
             <v-row justify="end">
               <a
                 :href="user.html_url"
@@ -74,10 +80,12 @@
           <v-list-item>
             <v-row>
               <v-icon class="mr-1">mdi-notebook</v-icon>
+
               <v-chip class="subheading mr-2">
                 {{ user.public_repos }}
               </v-chip>
             </v-row>
+
             <v-row justify="end">
               <a
                 :href="user.html_url"
@@ -109,6 +117,7 @@
               <v-list-item>
                 <v-row>
                   <v-icon class="mr-1">mdi-star</v-icon>
+
                   <v-chip class="subheading mr-2">
                     {{ repo.stargazers_count }}
                   </v-chip>
@@ -120,8 +129,10 @@
               <v-list-item>
                 <v-row v-if="repo.language !== null">
                   <v-icon class="mr-1">mdi-file-code</v-icon>
+
                   <div class="subtitle-1">{{ repo.language }}</div>
                 </v-row>
+
                 <v-row justify="end">
                   <a
                     :href="user.html_url"
@@ -144,9 +155,6 @@
           ></v-divider>
         </div>
       </v-card>
-      <!-- <p>
-        <code>{{ repos }}</code>
-      </p> -->
     </v-flex>
   </v-layout>
 </template>
