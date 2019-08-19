@@ -1,7 +1,7 @@
 <template>
-  <v-layout justify-center>
+  <v-layout v-if="isDataFetched" justify-center>
     <v-flex xs12 md10 lg8>
-      <v-card v-if="isDataFetched" light class="mb-2">
+      <v-card light class="mb-2">
         <v-list-item three-line>
           <v-list-item-avatar size="80" color="grey" tile>
             <v-img
@@ -30,7 +30,7 @@
           <v-icon class="mr-1">mdi-email</v-icon> {{ user.email }}
         </v-list-item>
 
-        <v-list-item v-if="user.blog !== null" class="body-1">
+        <v-list-item v-if="user.blog !== ''" class="body-1">
           <v-icon class="mr-1">mdi-link-variant</v-icon>
           <a
             :href="user.blog"
