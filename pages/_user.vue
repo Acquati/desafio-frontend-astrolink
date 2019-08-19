@@ -43,7 +43,7 @@
         </v-list-item>
 
         <v-card-actions>
-          <v-list-item class="grow">
+          <v-list-item>
             <v-row align="center">
               <v-icon class="ml-2 mr-1">mdi-account-group</v-icon>
               <v-chip class="subheading mr-2">{{ user.followers }}</v-chip>
@@ -70,7 +70,7 @@
       <v-card>
         <v-card-title>{{ user.name }} Repositories</v-card-title>
         <v-card-actions>
-          <v-list-item class="grow">
+          <v-list-item>
             <v-row align="center">
               <v-icon class="mr-1">mdi-notebook</v-icon>
               <v-chip class="subheading mr-2">
@@ -95,9 +95,11 @@
         <v-divider></v-divider>
 
         <template>
-          <v-card-text>
-            <div class="title text--primary">Tonight's availability</div>
-          </v-card-text>
+          <v-card-actions>
+            <v-list-item>
+              <div class="title">Tonight's availability</div>
+            </v-list-item>
+          </v-card-actions>
 
           <v-divider class="mx-4"></v-divider>
         </template>
