@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center>
-    <v-flex xs12 md8 lg10>
+    <v-flex xs12 md10 lg8>
       <v-card v-if="isDataFetched" light>
         <v-list-item three-line>
           <v-list-item-avatar size="80" color="grey" tile>
