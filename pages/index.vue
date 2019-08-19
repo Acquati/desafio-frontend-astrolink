@@ -20,7 +20,7 @@
           <v-list-item class="pl-2">
             <v-list-item-avatar color="white">
               <v-img
-                :ref="result.login + ' Avatar'"
+                :alt="result.login + ' GitHub Avatar'"
                 class="elevation-6"
                 :src="result.avatar_url"
               ></v-img>

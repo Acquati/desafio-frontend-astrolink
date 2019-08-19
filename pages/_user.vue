@@ -5,7 +5,7 @@
         <v-list-item three-line>
           <v-list-item-avatar size="80" color="white" tile>
             <v-img
-              :ref="user.login + ' Avatar'"
+              :alt="user.login + ' GitHub Avatar'"
               class="elevation-3"
               :src="user.avatar_url"
             ></v-img>
@@ -55,7 +55,7 @@
               <a
                 :href="user.html_url"
                 target="_blank"
-                :rel="user.name + ' GitHub Page'"
+                :title="user.name + ' GitHub Profile'"
                 style="text-decoration: none;"
               >
                 <v-btn dark>
@@ -81,7 +81,7 @@
               <a
                 :href="user.html_url"
                 target="_blank"
-                :rel="user.name + ' GitHub Repositories Page'"
+                :title="user.name + ' GitHub Repositories Page'"
                 style="text-decoration: none;"
               >
                 <v-btn light>
