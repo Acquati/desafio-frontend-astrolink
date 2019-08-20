@@ -18,7 +18,7 @@
 
             <div class="subtitle-2 mb-4">{{ user.login }}</div>
 
-            <div class="subtitle-1">{{ user.bio }}</div>
+            <div class="body-1">{{ user.bio }}</div>
           </v-list-item-content>
         </v-list-item>
 
