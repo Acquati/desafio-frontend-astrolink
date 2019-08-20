@@ -77,9 +77,9 @@
         <v-card-actions>
           <v-list-item>
             <v-row>
-              <v-icon class="mr-1">mdi-notebook</v-icon>
+              <v-icon class="mr-1 mb-1">mdi-notebook</v-icon>
 
-              <v-chip class="subheading mr-2">
+              <v-chip class="subheading mr-2 mb-1">
                 {{ user.public_repos }}
               </v-chip>
 
