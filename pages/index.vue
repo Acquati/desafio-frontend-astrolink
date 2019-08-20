@@ -37,10 +37,11 @@
         <v-card-actions class="pt-0">
           <v-list-item>
             <v-row>
-              <v-icon class="mr-1">mdi-github-box</v-icon>
-              <span class="subheading mr-2"
-                >Score: <v-chip>{{ result.score }}</v-chip></span
-              >
+              <span class="subheading mr-2">
+                <v-icon class="mr-1">mdi-github-box</v-icon>Score:
+
+                <v-chip>{{ result.score }}</v-chip>
+              </span>
             </v-row>
 
             <v-row justify="end">
