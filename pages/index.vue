@@ -38,9 +38,7 @@
           <v-list-item>
             <v-row>
               <span class="subheading mr-2">
-                <v-icon class="mr-1">mdi-github-box</v-icon>Score:
-
-                <v-chip>{{ result.score }}</v-chip>
+                Score: <v-chip>{{ result.score }}</v-chip>
               </span>
             </v-row>
 
